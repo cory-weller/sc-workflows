@@ -1,0 +1,20 @@
+name: sysbiosinglecell
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - python>3.11
+    - snakemake
+    - pandas
+    - pyyaml
+    - numpy
+    - scanpy
+    - scrublet
+    - scikit-image
+    - anndata
+    - scipy
+    - regex
+    - pip           # <- must be listed as a conda dependency
+    - pip:
+        - synapseclient
+        - snakemake-executor-plugin-slurm

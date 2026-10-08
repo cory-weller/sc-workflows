@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import sys
+from pathlib import Path
+sys.tracebacklimit = 0
+
+configfile: 'config.yaml'
+
+print("Module-level cellranger job config:")
+print(type(config), config)
+
+rule run_cellbender:
+    input: bam='DATA/{library}/CELLRANGER/possorted_genome_bam.bam'
+    output: h5='DATA/{library}/CELLBENDER/filtered.h5'
+    envmodules: 'cellbender/0.3.2'
+    resources:
+        slurm_partition='gpu',
+        gres='lscratch:5',
+        slurm_extra='--gpus-per-node=a100:1'
+    params:
+        scratch='/lscratch/$SLURM_JOB_ID'
+    conda: 'envs/requirements.yaml'
+    script: 'scripts/cellbender.sh'
+
