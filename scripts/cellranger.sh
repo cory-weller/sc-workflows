@@ -40,4 +40,3 @@ mkdir -p $OUTDIR
 
 # Move contents from cellranger/outs to permanent disk location
 cp -r outs/. $OUTDIR/
-
