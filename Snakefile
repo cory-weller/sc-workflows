@@ -54,7 +54,7 @@ rule run_cellranger:
     params:
         create_bam = cellranger.create_bam,
         transcriptome = cellranger.transcriptome,
-        scratch = slurm.scratch
+        scratch = slurm.scratch_dir
     resources:
         slurm_partition = slurm.norm_partition,
         gres = cellbender.scratch_gb,
@@ -70,6 +70,6 @@ rule run_cellbender:
         gres = cellbender.scratch_gb,
         slurm_extra = slurm.gpu_extra
     params:
-        scratch=slurm.scratch
+        scratch=slurm.scratch_dir
     script: cellbender.script
 

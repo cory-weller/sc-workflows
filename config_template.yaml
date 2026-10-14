@@ -1,5 +1,5 @@
 slurm:
-    scratch: /lscratch/$SLURM_JOB_ID
+    scratch_dir: /lscratch/$SLURM_JOB_ID
     gpu_partition: gpu
     norm_partition: norm
     gpu_extra: '--gpus-per-node=a100:1'
