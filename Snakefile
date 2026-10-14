@@ -6,40 +6,7 @@ import yaml
 min_version("9.0")
 
 
-class DotDict(dict):
-    """
-    A dictionary subclass that enables dot notation for accessing, 
-    setting, and deleting keys recursively.
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Recursively convert any nested dict inputs into DotDicts
-        for key, value in self.items():
-            self[key] = self._convert(value)
-
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError:
-            raise AttributeError(f"'DotDict' object has no attribute '{key}'")
-
-    def __setattr__(self, key, value):
-        self[key] = self._convert(value)
-
-    def __delattr__(self, key):
-        try:
-            del self[key]
-        except KeyError:
-            raise AttributeError(f"'DotDict' object has no attribute '{key}'")
-
-    def _convert(self, value):
-        """Recursively process values to handle nested dictionaries and lists."""
-        if isinstance(value, dict) and not isinstance(value, DotDict):
-            return DotDict(value)
-        elif isinstance(value, list):
-            return [self._convert(item) for item in value]
-        return value
-
+from sc_workflows.helpers import DotDict
 
 # Make more easily-accessible dicts
 config = DotDict(config)
@@ -57,9 +24,8 @@ rule run_cellranger:
         scratch = slurm.scratch_dir
     resources:
         slurm_partition = slurm.norm_partition,
-        gres = cellbender.scratch_gb,
-        slurm_extra = slurm.gpu_extra
-    script: cellranger.script
+        gres = cellranger.scratch_gb,
+    script: 'scripts/run_cellranger.sh'
 
 rule run_cellbender:
     input: bam= cellranger.dir + '/{library}/possorted_genome_bam.bam'
@@ -71,5 +37,5 @@ rule run_cellbender:
         slurm_extra = slurm.gpu_extra
     params:
         scratch=slurm.scratch_dir
-    script: cellbender.script
+    script: 'scripts/run_cellbender.sh'
 
