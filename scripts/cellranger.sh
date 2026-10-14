@@ -22,7 +22,6 @@ CMD=(cellranger count \
     --id ${snakemake_wildcards[library]} \
     --create-bam true \
     --libraries $(basename ${snakemake_input[csv]}) \
-    --output-dir . \
     --transcriptome ${snakemake_params[transcriptome]} \
     --disable-cell-annotation \
     --nosecondary)
