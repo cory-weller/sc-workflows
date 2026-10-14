@@ -25,7 +25,7 @@ rule run_cellranger:
     resources:
         slurm_partition = slurm.norm_partition,
         gres = cellranger.scratch_gb,
-    script: 'scripts/run_cellranger.sh'
+    script: 'scripts/cellranger.sh'
 
 rule run_cellbender:
     input: bam= cellranger.dir + '/{library}/possorted_genome_bam.bam'
@@ -37,5 +37,5 @@ rule run_cellbender:
         slurm_extra = slurm.gpu_extra
     params:
         scratch=slurm.scratch_dir
-    script: 'scripts/run_cellbender.sh'
+    script: 'scripts/cellbender.sh'
 
