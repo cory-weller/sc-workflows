@@ -24,7 +24,7 @@ rule run_cellranger:
         scratch = slurm.scratch_dir
     resources:
         slurm_partition = slurm.norm_partition,
-        gres = cellranger.scratch_gb,
+        gres = f"lscratch:{cellranger.scratch_gb}"
     script: 'scripts/cellranger.sh'
 
 rule run_cellbender:
@@ -33,7 +33,7 @@ rule run_cellbender:
     envmodules: cellbender.module
     resources:
         slurm_partition = slurm.gpu_partition,
-        gres = cellbender.scratch_gb,
+        gres = f"lscratch:{cellbender.scratch_gb}"
         slurm_extra = slurm.gpu_extra
     params:
         scratch=slurm.scratch_dir
