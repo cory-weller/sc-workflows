@@ -4,7 +4,8 @@ slurm:
     norm_partition: norm
     gpu_extra: '--gpus-per-node=a100:1'
 cellranger:
-    dir: DATA/CELLRANGER
+    reads_dir: DATA/READS
+    output_dir: DATA/CELLRANGER
     scratch_gb: 500
     transcriptome: /fdb/cellranger/refdata-gex-GRCh38-2024-A
     create_bam: true                            # true or false - all lowercase required
