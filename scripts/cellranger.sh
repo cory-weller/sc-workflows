@@ -29,11 +29,9 @@ CMD=(cellranger count \
     
 echo ${CMD[@]}
 
-touch ${OUTBAM}
-
-exit 0
-
 cd $TMPDIR
+
+${CMD[@]}
 
 # Only create output directory if cellranger succeeded
 mkdir -p $OUTDIR
