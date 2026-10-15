@@ -15,8 +15,7 @@ cd $TMPDIR || exit 1
 # Build command from snakemake input and output
 CMD=(bash cellbender remove-background \
     --cuda \
-    --input $INBAM \
-    --output $TMPDIR)
+    --input $INBAM)
 
 # Print command to terminal for log
 echo ${CMD[@]}
