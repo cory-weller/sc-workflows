@@ -16,8 +16,6 @@ INCSV=$(readlink -e ${snakemake_input[csv]})
 mkdir -p $TMPDIR
 cp $INCSV $TMPDIR && cd $TMPDIR
 
-mem_gb=$(
-    
 CMD=(cellranger count \
     --id ${snakemake_wildcards[library]} \
     --create-bam true \
