@@ -21,7 +21,8 @@ rule run_cellranger:
     params:
         create_bam = cellranger.create_bam,
         transcriptome = cellranger.transcriptome,
-        scratch = slurm.scratch_dir
+        scratch = slurm.scratch_dir,
+        mem_gb = cellranger.mem_mb / 1100
     resources:
         slurm_partition = slurm.norm_partition,
         gres = f"lscratch:{cellranger.scratch_gb}",

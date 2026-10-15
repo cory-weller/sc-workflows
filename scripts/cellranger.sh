@@ -16,11 +16,13 @@ INCSV=$(readlink -e ${snakemake_input[csv]})
 mkdir -p $TMPDIR
 cp $INCSV $TMPDIR && cd $TMPDIR
 
-
-
+mem_gb=$(
+    
 CMD=(cellranger count \
     --id ${snakemake_wildcards[library]} \
     --create-bam true \
+    --localcores ${snakemake_resources[cpus_per_task]} \
+    --localmem ${snakemake_params[mem_gb]} \
     --libraries $(basename ${snakemake_input[csv]}) \
     --transcriptome ${snakemake_params[transcriptome]} \
     --disable-cell-annotation \
@@ -36,4 +38,4 @@ ${CMD[@]}
 mkdir -p $OUTDIR
 
 # Move contents from cellranger/outs to permanent disk location
-cp -r outs/. $OUTDIR/
+cp -r ${snakemake_wildcards[library]}/outs/. $OUTDIR/
